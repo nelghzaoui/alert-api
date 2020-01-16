@@ -1,3 +1,3 @@
-export class Product {
-  constructor(public id: string, public name: string, public url: string, public port: number) {}
+export class Server {
+  constructor(public name: string, public url: string, public port: number) {}
 }

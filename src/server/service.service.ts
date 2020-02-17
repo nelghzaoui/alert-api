@@ -3,52 +3,84 @@ import {
   NotAcceptableException,
   NotFoundException
 } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { Server } from './server.model';
 
 @Injectable()
 export class ServerService {
-  private servers: Server[] = [];
+  constructor(
+    @InjectModel('Server') private readonly serverModel: Model<Server>
+  ) {}
 
-  create(server: Server): string {
-    const id = new Date().toString();
-    this.servers.push(server);
+  async create(server: Server): Promise<string> {
+    const createdServer = new this.serverModel({
+      name: server.name,
+      url: server.url,
+      port: server.port
+    });
 
-    return id;
+    const result = await createdServer.save();
+
+    return result.id;
   }
 
-  readAll(): Server[] {
-    return [...this.servers];
+  async readAll() {
+    const servers = await this.serverModel.find().exec();
+
+    return servers.map(s => ({
+      id: s.id,
+      name: s.name,
+      url: s.url,
+      port: s.port
+    }));
   }
 
-  read(name: string): Server {
-    const server = this.find(name)[0];
+  async read(id: string) {
+    const server = await this.find(id);
 
-    return { ...server };
+    return {
+      id: server.id,
+      name: server.name,
+      url: server.url,
+      port: server.port
+    };
   }
 
-  update(name: string, newServer: Server): void {
-    const index = this.find(name)[1];
+  async update(id: string, newServer: Server): Promise<void> {
+    const updatedServer = await this.find(id);
 
     if (!newServer) {
       throw new NotAcceptableException();
     }
 
-    this.servers[index] = newServer;
+    if (newServer.name) updatedServer.name = newServer.name;
+    if (newServer.url) updatedServer.url = newServer.url;
+    if (newServer.port) updatedServer.port = newServer.port;
+
+    updatedServer.save();
   }
 
-  delete(name: string): void {
-    const index = this.find(name)[1];
-    this.servers.splice(index, 1);
+  async delete(id: string): Promise<void> {
+    const result = await this.serverModel.deleteOne({ _id: id }).exec();
+
+    if (result.n === 0) {
+      throw new NotFoundException('Could not find server.');
+    }
   }
 
-  private find(name: string): [Server, number] {
-    const index = this.servers.findIndex(server => server.name === name);
-    const server = this.servers[index];
+  private async find(id: string): Promise<Server> {
+    let server: Server;
+    try {
+      server = await this.serverModel.findById(id).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find server.');
+    }
 
     if (!server) {
       throw new NotFoundException('Could not find server.');
     }
 
-    return [server, index];
+    return server;
   }
 }

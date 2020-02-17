@@ -15,31 +15,34 @@ export class ServerController {
   constructor(private readonly serverService: ServerService) {}
 
   @Post()
-  add(@Body('server') server: Server): { id: string } {
-    const id = this.serverService.create(server);
+  async add(@Body('server') server: Server): Promise<{ id: string }> {
+    const generatedId = await this.serverService.create(server);
 
-    return { id: id };
+    return { id: generatedId };
   }
 
   @Get()
-  getAll(): Server[] {
-    return this.serverService.readAll();
+  async getAll() {
+    return await this.serverService.readAll();
   }
 
-  @Get(':name')
-  get(@Param('name') name: string): Server {
-    return this.serverService.read(name);
+  @Get(':id')
+  async get(@Param('id') id: string) {
+    return await this.serverService.read(id);
   }
 
-  @Patch(':name')
-  update(@Param('name') name: string, @Body('server') server: Server): void {
-    this.serverService.update(name, server);
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body('server') server: Server
+  ): Promise<void> {
+    await this.serverService.update(id, server);
     return;
   }
 
-  @Delete(':name')
-  remove(@Param('name') name: string): void {
-    this.serverService.delete(name);
+  @Delete(':id')
+  async remove(@Param('id') id: string): Promise<void> {
+    await this.serverService.delete(id);
     return;
   }
 }

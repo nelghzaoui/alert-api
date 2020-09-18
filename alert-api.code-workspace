@@ -12,6 +12,7 @@
     "eslint.alwaysShowStatus": true,
     "workbench.colorCustomizations": {
       "activityBar.background": "#00ebbd",
+      "activityBar.activeBackground": "#00ebbd",
       "activityBar.activeBorder": "#da40ff",
       "activityBar.foreground": "#15202b",
       "activityBar.inactiveForeground": "#15202b99",

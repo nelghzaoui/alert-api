@@ -9,6 +9,13 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "paths": {
+      "@core/*": ["src/modules/core/*"],
+      "@account/*": ["src/modules/features/account/*"],
+      "@alert/*": ["src/modules/features/alert/*"],
+      "@security/*": ["src/modules/features/security/*"],
+      "@server/*": ["src/modules/features/server/*"]
+    },
     "incremental": true
   },
   "exclude": ["node_modules", "dist"]

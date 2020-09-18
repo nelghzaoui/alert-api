@@ -1,14 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
-  Post,
-  Delete
+  Post
 } from '@nestjs/common';
-import { Server } from './server.model';
-import { ServerService } from './service.service';
+import { Server } from '../model/server.model';
+import { ServerService } from '../service/server.service';
 
 @Controller('servers')
 export class ServerController {

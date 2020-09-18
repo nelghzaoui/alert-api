@@ -1,14 +1,19 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ServerModule } from './server/server.module';
+
+/* Custom Module */
+import { AccountModule } from '@account/account.module';
+import { CoreModule } from '@core/core.module';
+import { ServerModule } from '@server/server.module';
 
 const databaseUrl =
-  'mongodb+srv://nasreddine:lGl97ueIbH6SXYPU@cluster0-dkg9q.gcp.mongodb.net/alert-db?retryWrites=true&w=majority';
+  'mongodb+srv://nasreddine:G5iECWApFc7JQmHF@cluster0.yejys.gcp.mongodb.net/alert?retryWrites=true&w=majority';
 @Module({
-  imports: [ServerModule, MongooseModule.forRoot(databaseUrl)],
-  controllers: [AppController],
-  providers: [AppService]
+  imports: [
+    CoreModule,
+    AccountModule,
+    ServerModule,
+    MongooseModule.forRoot(databaseUrl)
+  ]
 })
 export class AppModule {}

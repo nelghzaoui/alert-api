@@ -3,7 +3,7 @@ export interface LoginDTO {
   password: string;
 }
 
-export interface LoginReponseDTO {
+export interface LoginResponseDTO {
   succes: boolean;
   timeout: number;
 }

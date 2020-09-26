@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateServerDTO, ServerDTO } from '@server/dtos/server.dto';
+import { CreateServerDTO, ServerDTO } from '@server/models/dtos/server.dto';
 import { ServerService } from '@server/services/server.service';
 
 @Controller('servers')

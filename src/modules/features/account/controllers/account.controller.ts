@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { AccountDTO, CreateAccountDTO } from '@account/models/account.dto';
+import { AccountDTO, CreateAccountDTO } from '@account/models/dtos/account.dto';
 import { AccountService } from '@account/services/account.service';
 
 @Controller('accounts')

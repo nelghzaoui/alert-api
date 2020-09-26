@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CoreService } from '@core/service/core.service';
-import { Account } from '@account/schemas/account.schema';
-import { AccountDTO } from '@account/models/account.dto';
+import { Account } from '@account/models/schemas/account.schema';
+import { AccountDTO } from '@account/models/dtos/account.dto';
 
 @Injectable()
 export class AccountService extends CoreService {

@@ -3,8 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { CoreService } from '@core/service/core.service';
-import { LoginDTO, LoginReponseDTO } from '@account/models/login.dto';
-import { Account } from '@account/schemas/account.schema';
+import { LoginDTO } from '@account/models/dtos/login.dto';
+import { Account } from '@account/models/schemas/account.schema';
 
 @Injectable()
 export class LoginService extends CoreService {

@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { LoginService } from '../services/login.service';
-import { LoginDTO, LoginReponseDTO } from '../models/login.dto';
+import { LoginDTO, LoginResponseDTO } from '../models/dtos/login.dto';
 
 @Controller('login')
 export class LoginController {
@@ -10,10 +10,10 @@ export class LoginController {
   async login(
     @Param('id') id: string,
     @Body('login') login: LoginDTO
-  ): Promise<LoginReponseDTO> {
+  ): Promise<LoginResponseDTO> {
     const isConnected = await this.loginService.checkAccount(id, login);
 
-    const response: LoginReponseDTO = {
+    const response: LoginResponseDTO = {
       succes: isConnected,
       timeout: isConnected ? 1000 : -1,
     };

@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Patch,
-  Post
+  Post,
 } from '@nestjs/common';
 import { AccountDTO, CreateAccountDTO } from '@account/models/account.dto';
 import { AccountService } from '@account/services/account.service';
@@ -19,7 +19,7 @@ export class AccountController {
     const account = await this.accountService.create(params);
 
     const response: CreateAccountDTO = {
-      id: account.id
+      id: account.id,
     };
 
     return response;
@@ -30,17 +30,11 @@ export class AccountController {
     const accounts = await this.accountService.readAll();
     const response: AccountDTO[] = [];
 
-    accounts.map(account => {
+    accounts.map(a =>
       response.push(
-        new AccountDTO(
-          account.name,
-          account.username,
-          account.email,
-          account.password,
-          account.creationDate
-        )
-      );
-    });
+        new AccountDTO(a.name, a.username, a.email, a.password, a.creationDate)
+      )
+    );
 
     return response;
   }

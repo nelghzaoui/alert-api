@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import {
   Injectable,
   NotAcceptableException,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CoreService } from '@core/service/core.service';

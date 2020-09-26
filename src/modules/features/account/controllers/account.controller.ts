@@ -7,18 +7,19 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { AccountDTO, CreateAccountDTO } from '@account/models/dtos/account.dto';
+import { AccountDTO } from '@account/models/dtos/account.dto';
 import { AccountService } from '@account/services/account.service';
+import { CreateDTO } from '@core/models/dtos/create.dto';
 
 @Controller('accounts')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Post()
-  async add(@Body('account') params: AccountDTO): Promise<CreateAccountDTO> {
+  public async add(@Body('account') params: AccountDTO): Promise<CreateDTO> {
     const account = await this.accountService.create(params);
 
-    const response: CreateAccountDTO = {
+    const response: CreateDTO = {
       id: account.id,
     };
 
@@ -26,7 +27,7 @@ export class AccountController {
   }
 
   @Get()
-  async getAll(): Promise<AccountDTO[]> {
+  public async getAll(): Promise<AccountDTO[]> {
     const accounts = await this.accountService.readAll();
     const response: AccountDTO[] = [];
 
@@ -40,7 +41,7 @@ export class AccountController {
   }
 
   @Get(':id')
-  async get(@Param('id') id: string): Promise<AccountDTO> {
+  public async get(@Param('id') id: string): Promise<AccountDTO> {
     const account = await this.accountService.read(id);
 
     const response = new AccountDTO(
@@ -55,7 +56,7 @@ export class AccountController {
   }
 
   @Patch(':id')
-  async update(
+  public async update(
     @Param('id') id: string,
     @Body('account') account: AccountDTO
   ): Promise<void> {
@@ -64,7 +65,7 @@ export class AccountController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
+  public async remove(@Param('id') id: string): Promise<void> {
     await this.accountService.delete(id);
     return;
   }

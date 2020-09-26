@@ -29,14 +29,14 @@ export class ServerService extends CoreService {
     return servers;
   }
 
-  async read(id: string): Promise<Server> {
+  public async read(id: string): Promise<Server> {
     const server: Server = await super.find(this.serverModel, id);
 
     return server;
   }
 
-  async update(id: string, params: ServerDTO): Promise<void> {
-    const server: Server = await this.find(this.serverModel, id);
+  public async update(id: string, params: ServerDTO): Promise<void> {
+    const server: Server = await super.find(this.serverModel, id);
 
     if (!params) {
       throw new NotAcceptableException();
@@ -49,7 +49,7 @@ export class ServerService extends CoreService {
     server.save();
   }
 
-  async delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     const result = await this.serverModel.deleteOne({ _id: id }).exec();
 
     if (result.n === 0) {

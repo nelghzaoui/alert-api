@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 /* Custom Module */
-import { AccountModule } from '@account/account.module';
 import { CoreModule } from '@core/core.module';
+import { AlertModule } from './modules/features/alert/alert.module';
+import { AccountModule } from '@account/account.module';
 import { ServerModule } from '@server/server.module';
 
 const databaseUrl =
@@ -11,9 +12,10 @@ const databaseUrl =
 @Module({
   imports: [
     CoreModule,
+    AlertModule,
     AccountModule,
     ServerModule,
-    MongooseModule.forRoot(databaseUrl)
-  ]
+    MongooseModule.forRoot(databaseUrl),
+  ],
 })
 export class AppModule {}

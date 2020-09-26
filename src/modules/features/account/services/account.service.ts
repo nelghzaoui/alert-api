@@ -29,13 +29,13 @@ export class AccountService extends CoreService {
     return accounts;
   }
 
-  async read(id: string): Promise<Account> {
+  public async read(id: string): Promise<Account> {
     const account: Account = await super.find(this.accountModel, id);
 
     return account;
   }
 
-  async update(id: string, params: AccountDTO): Promise<void> {
+  public async update(id: string, params: AccountDTO): Promise<void> {
     const account: Account = await super.find(this.accountModel, id);
 
     if (!params) {
@@ -50,7 +50,7 @@ export class AccountService extends CoreService {
     account.save();
   }
 
-  async delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     const result = await this.accountModel.deleteOne({ _id: id }).exec();
 
     if (result.n === 0) {

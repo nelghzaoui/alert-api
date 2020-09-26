@@ -14,28 +14,17 @@ export class LoginService extends CoreService {
     super();
   }
 
-  public async checkAccount(
-    id: string,
-    credentials: LoginDTO
-  ): Promise<LoginReponseDTO> {
+  public async checkAccount(id: string, login: LoginDTO): Promise<boolean> {
     const user: Account = await super.find(this.accountModel, id);
 
     if (!user) {
       throw new NotFoundException('Could not find account.');
     }
 
-    const response: LoginReponseDTO = {
-      succes: false,
-      timeout: -1
-    };
-    if (
-      credentials.email === user.email &&
-      credentials.password === user.email
-    ) {
-      response.succes = true;
-      response.timeout = 1000;
+    if (login.email === user.email && login.password === user.email) {
+      return true;
     }
 
-    return response;
+    return false;
   }
 }

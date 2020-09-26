@@ -9,10 +9,15 @@ export class LoginController {
   @Post(':id')
   async login(
     @Param('id') id: string,
-    @Body('credentials') credentials: LoginDTO
+    @Body('login') login: LoginDTO
   ): Promise<LoginReponseDTO> {
-    const result = await this.loginService.checkAccount(id, credentials);
+    const isConnected = await this.loginService.checkAccount(id, login);
 
-    return result;
+    const response: LoginReponseDTO = {
+      succes: isConnected,
+      timeout: isConnected ? 1000 : -1,
+    };
+
+    return response;
   }
 }

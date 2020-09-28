@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 /* Custom Module */
 import { CoreModule } from '@core/core.module';
-import { AlertModule } from './modules/features/alert/alert.module';
+import { AlertModule } from '@alert/alert.module';
 import { AccountModule } from '@account/account.module';
 import { ServerModule } from '@server/server.module';
 

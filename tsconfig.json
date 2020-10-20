@@ -16,7 +16,8 @@
       "@security/*": ["src/modules/features/security/*"],
       "@server/*": ["src/modules/features/server/*"]
     },
-    "incremental": true
+    "incremental": true,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist"]
 }

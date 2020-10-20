@@ -13,27 +13,27 @@ export class AccountService extends CoreService {
     super();
   }
 
-  public async create(account: AccountInput): Promise<AccountType> {
+  async create(account: AccountInput): Promise<AccountType> {
     const result = await new this.accountModel(account).save();
 
     return result;
   }
 
-  public async readAll(): Promise<AccountType[]> {
+  async readAll(): Promise<AccountType[]> {
     return await this.accountModel.find().exec();
   }
 
-  public async read(id: string): Promise<AccountType> {
+  async read(id: string): Promise<AccountType> {
     return await this.accountModel.findOne({ _id: id });
   }
 
-  public async update(id: string, account: AccountInput): Promise<AccountType> {
+  async update(id: string, account: AccountInput): Promise<AccountType> {
     return await this.accountModel.findByIdAndUpdate(id, account, {
       new: true,
     });
   }
 
-  public async delete(id: string): Promise<AccountType> {
+  async delete(id: string): Promise<AccountType> {
     return await this.accountModel.findByIdAndRemove(id);
   }
 }

@@ -12,12 +12,12 @@ export class AccountResolver {
     return this.accountService.create(input);
   }
 
-  @Query(() => [AccountType])
+  @Query(() => [AccountType], { name: 'accounts' })
   async getAccounts(): Promise<AccountType[]> {
     return this.accountService.readAll();
   }
 
-  @Query(() => AccountType)
+  @Query(() => AccountType, { name: 'account' })
   async getAccount(@Args('id') id: string): Promise<AccountType> {
     return this.accountService.read(id);
   }

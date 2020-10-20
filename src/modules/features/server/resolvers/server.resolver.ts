@@ -12,12 +12,12 @@ export class ServerResolver {
     return this.serverService.create(input);
   }
 
-  @Query(() => [ServerType])
+  @Query(() => [ServerType], { name: 'servers' })
   async getServers(): Promise<ServerType[]> {
     return this.serverService.readAll();
   }
 
-  @Query(() => ServerType)
+  @Query(() => ServerType, { name: 'server' })
   async getServer(@Args('id') id: string): Promise<ServerType> {
     return this.serverService.read(id);
   }

@@ -24,10 +24,10 @@ type ServerType {
 }
 
 type Query {
-  getAccounts: [AccountType!]!
-  getAccount(id: String!): AccountType!
-  getServers: [ServerType!]!
-  getServer(id: String!): ServerType!
+  accounts: [AccountType!]!
+  account(id: String!): AccountType!
+  servers: [ServerType!]!
+  server(id: String!): ServerType!
 }
 
 type Mutation {

@@ -1,0 +1,27 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ServerType {
+  id: ID!
+  name: String!
+  url: String!
+  port: Int!
+}
+
+type Query {
+  getServers: [ServerType!]!
+  getServer(id: String!): ServerType!
+}
+
+type Mutation {
+  addServer(input: ServerInput!): ServerType!
+  updateServer(input: ServerInput!, id: String!): ServerType!
+  deleteServer(id: String!): ServerType!
+}
+
+input ServerInput {
+  name: String!
+  url: String!
+  port: Int!
+}

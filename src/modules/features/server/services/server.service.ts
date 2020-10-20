@@ -1,13 +1,8 @@
 import { Model } from 'mongoose';
-import {
-  Injectable,
-  NotAcceptableException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CoreService } from '@core/service/core.service';
-import { Server } from '@server/models/schemas/server.schema';
-import { ServerDTO } from '@server/models/dtos/server.dto';
+import { Server, ServerInput, ServerType } from '@server/models';
 
 @Injectable()
 export class ServerService extends CoreService {
@@ -17,43 +12,25 @@ export class ServerService extends CoreService {
     super();
   }
 
-  public async create(server: ServerDTO): Promise<Server> {
+  async create(server: ServerInput): Promise<ServerType> {
     const result = await new this.serverModel(server).save();
 
     return result;
   }
 
-  public async readAll(): Promise<Server[]> {
-    const servers = await this.serverModel.find().exec();
-
-    return servers;
+  async readAll(): Promise<ServerType[]> {
+    return await this.serverModel.find().exec();
   }
 
-  public async read(id: string): Promise<Server> {
-    const server: Server = await super.find(this.serverModel, id);
-
-    return server;
+  async read(id: string): Promise<ServerType> {
+    return await this.serverModel.findOne({ _id: id });
   }
 
-  public async update(id: string, params: ServerDTO): Promise<void> {
-    const server: Server = await super.find(this.serverModel, id);
-
-    if (!params) {
-      throw new NotAcceptableException();
-    }
-
-    if (params.name) server.name = params.name;
-    if (params.url) server.url = params.url;
-    if (params.port) server.port = params.port;
-
-    server.save();
+  async update(id: string, server: ServerInput): Promise<ServerType> {
+    return await this.serverModel.findByIdAndUpdate(id, server, { new: true });
   }
 
-  public async delete(id: string): Promise<void> {
-    const result = await this.serverModel.deleteOne({ _id: id }).exec();
-
-    if (result.n === 0) {
-      throw new NotFoundException('Could not find server.');
-    }
+  async delete(id: string): Promise<ServerType> {
+    return await this.serverModel.findByIdAndRemove(id);
   }
 }

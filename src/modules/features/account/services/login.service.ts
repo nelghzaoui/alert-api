@@ -15,13 +15,13 @@ export class LoginService extends CoreService {
   }
 
   public async checkAccount(id: string, login: LoginDTO): Promise<boolean> {
-    const user: Account = await super.find(this.accountModel, id);
+    const user = await this.accountModel.findOne({ _id: id });
 
     if (!user) {
       throw new NotFoundException('Could not find account.');
     }
 
-    if (login.email === user.email && login.password === user.email) {
+    if (login.email === user.email && login.password === user.password) {
       return true;
     }
 

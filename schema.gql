@@ -16,6 +16,24 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type AddressType {
+  city: String!
+  postCode: Int!
+  street: String!
+  streetNumber: Int!
+}
+
+type AlertType {
+  id: ID!
+  name: String!
+  description: String!
+  type: String!
+  address: AddressType!
+  isAcknowledge: Boolean!
+  isEnd: Boolean!
+  creationDate: DateTime!
+}
+
 type ServerType {
   id: ID!
   name: String!
@@ -26,6 +44,8 @@ type ServerType {
 type Query {
   accounts: [AccountType!]!
   account(id: String!): AccountType!
+  alerts: [AlertType!]!
+  alert(id: String!): AlertType!
   servers: [ServerType!]!
   server(id: String!): ServerType!
 }
@@ -34,9 +54,10 @@ type Mutation {
   addAccount(input: AccountInput!): AccountType!
   updateAccount(input: AccountInput!, id: String!): AccountType!
   deleteAccount(id: String!): AccountType!
-  addServer(input: ServerInput!): ServerType!
+  addAlert(input: AlertInput!): AlertType!
   updateServer(input: ServerInput!, id: String!): ServerType!
   deleteServer(id: String!): ServerType!
+  addServer(input: ServerInput!): ServerType!
 }
 
 input AccountInput {
@@ -45,6 +66,23 @@ input AccountInput {
   email: String!
   password: String!
   creationDate: DateTime!
+}
+
+input AlertInput {
+  name: String!
+  description: String!
+  type: String!
+  address: AddressInput!
+  isAcknowledge: Boolean!
+  isEnd: Boolean!
+  creationDate: DateTime!
+}
+
+input AddressInput {
+  city: String!
+  postCode: Int!
+  street: String!
+  streetNumber: Int!
 }
 
 input ServerInput {

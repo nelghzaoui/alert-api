@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Address } from '../interfaces/address.interface';
+import { AddressInput } from '../dtos/address-input.dto';
 
 @Schema()
 export class Alert extends Document {
@@ -17,7 +17,7 @@ export class Alert extends Document {
   type: string;
 
   @Prop({ required: true })
-  address: Address;
+  address: AddressInput;
 
   @Prop({ required: true })
   isAcknowledge: boolean;

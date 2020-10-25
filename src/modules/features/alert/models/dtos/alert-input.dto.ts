@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { Address } from '../interfaces/address.interface';
+import { AddressInput } from './address-input.dto';
 
 @InputType()
 export class AlertInput {
@@ -9,8 +9,8 @@ export class AlertInput {
   readonly description: string;
   @Field()
   readonly type: string;
-  @Field(() => Address)
-  readonly address: Address;
+  @Field(() => AddressInput)
+  readonly address: AddressInput;
   @Field()
   readonly isAcknowledge: boolean;
   @Field()

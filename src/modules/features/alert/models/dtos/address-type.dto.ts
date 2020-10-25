@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class Address {
+export class AddressType {
   @Field()
   readonly city: string;
   @Field(() => Int)

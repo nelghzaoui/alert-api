@@ -13,25 +13,25 @@ export class AlertService extends CoreService {
     super();
   }
 
-  public async create(alert: AlertInput): Promise<AlertType> {
+  async create(alert: AlertInput): Promise<AlertType> {
     const result = await new this.alertModel(alert).save();
 
     return result;
   }
 
-  public async readAll(): Promise<AlertType[]> {
+  async readAll(): Promise<AlertType[]> {
     return await this.alertModel.find().exec();
   }
 
-  public async read(id: string): Promise<AlertType> {
+  async read(id: string): Promise<AlertType> {
     return await this.alertModel.findOne({ _id: id });
   }
 
-  public async update(id: string, alert: AlertInput): Promise<AlertType> {
+  async update(id: string, alert: AlertInput): Promise<AlertType> {
     return await this.alertModel.findByIdAndUpdate(id, alert, { new: true });
   }
 
-  public async delete(id: string): Promise<AlertType> {
+  async delete(id: string): Promise<AlertType> {
     return await this.alertModel.findByIdAndRemove(id);
   }
 }
